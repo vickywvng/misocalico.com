@@ -1,6 +1,5 @@
 ---
 import { Image } from "astro:assets";
-import { InfoIcon } from "@/components/react/Icons";
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import mainVideoSrc from "@/assets/videos/miso_hero.webm";
 
@@ -219,7 +218,7 @@ const contactForm = [
                             {s.includes.map((i) => (
                                 <li class="my-2">
                                     ✔️ {i}{" "}
-                                    {i.includes("organic usage") && (
+                                    {/* {i.includes("organic usage") && (
                                         <span
                                             data-tooltip-target="tooltip-dark"
                                             data-tooltip-style="light"
@@ -227,7 +226,7 @@ const contactForm = [
                                         >
                                             <InfoIcon />
                                         </span>
-                                    )}
+                                    )} */}
                                 </li>
                             ))}
                         </ul>
