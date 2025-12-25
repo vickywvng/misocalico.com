@@ -1,0 +1,31 @@
+---
+const stack = [
+    "astro",
+    "react",
+    "javascript",
+    "html5",
+    "css3",
+    "typescript",
+    "tailwindcss",
+    "nodejs",
+    "graphql",
+    "figma",
+    // "docker",
+    "git",
+];
+---
+
+<!-- TODO slow down ticker on hover, show tooltip name of tech -->
+<div
+    class="w-full overflow-hidden [mask-image:_linear-gradient(to_right,transparent_0,_black_128px,_black_calc(100%-128px),transparent_100%)]"
+>
+    <ul class:list={["inline-flex flex-nowrap", "animate-infinite-scroll"]}>
+        {
+            [...stack, ...stack, ...stack].map((s) => (
+                <li>
+                    <i class={`devicon-${s}-plain colored text-6xl m-3`} />
+                </li>
+            ))
+        }
+    </ul>
+</div>

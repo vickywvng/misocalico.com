@@ -1,11 +1,369 @@
 ---
-import Welcome from '../components/Welcome.astro';
-import Layout from '../layouts/Layout.astro';
+import { Image } from "astro:assets";
+import { InfoIcon } from "@/components/react/Icons";
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import mainVideoSrc from "@/assets/videos/miso_hero.webm";
 
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+// Brands
+import churu from "@/assets/images/brands/churu.jpg";
+import go from "@/assets/images/brands/go.jpg";
+import greenies from "@/assets/images/brands/greenies.jpg";
+import diggs from "@/assets/images/brands/diggs.jpg";
+
+const stats = [
+    { title: "followers", stat: "10k+" },
+    { title: "monthly views", stat: "50k+" },
+    { title: "collabs", stat: "20+" },
+];
+
+const portfolio = [
+    { brand: "Churu", description: "", img: churu, tags: [] },
+    { brand: "Go Solutions", description: "", img: go, tags: [] },
+    { brand: "Greenies", description: "", img: greenies, tags: [] },
+    { brand: "Diggs", description: "", img: diggs, tags: [] },
+    // { brand: "Roverlund", description: "", img: {}, tags: [] },
+    // { brand: "MayMaw", description: "", img: {}, tags: [] },
+    // { brand: "Intersand", description: "", img: {}, tags: [] },
+    // { brand: "Suzzipaws", description: "", img: {}, tags: [] },
+];
+
+const services = [
+    {
+        name: "Starter Miso Soup",
+        description: "Perfect for first-time collaborations",
+        includes: [
+            "1x short-form video (15–30s)",
+            "2x photos",
+            "7-day organic usage",
+        ],
+        icon: "🥬",
+        new: false,
+    },
+    {
+        name: "Classic Miso Bowl",
+        description: "Your most balanced, go-to package",
+        includes: [
+            "2x short-form videos",
+            "3x photos",
+            "Light trend research",
+            "30-day organic usage",
+        ],
+        icon: "⭐",
+        new: false,
+    },
+    {
+        name: "Miso Feast",
+        description: "The full course (and then some)",
+        includes: [
+            "3x short-form videos",
+            "5x photos",
+            "Trend + competitor research",
+            "Multiple formats (review, POV, lifestyle)",
+            "Paid usage included",
+            "Priority turnaround",
+        ],
+        icon: "🍲",
+        new: true,
+    },
+];
+// Optional Cute Add-Ons (Very “Miso”)
+// Extra Toppings → Additional hook variations
+// Extra Broth → Raw clips only
+// Spicy Miso → Bold hooks / conversion-first edits
+// Low-Sodium Miso → Soft, cozy, lifestyle edits
+
+const contactForm = [
+    { label: "Name", type: "text", required: true },
+    { label: "Email", type: "email", required: true },
+    { label: "What is your budget?", type: "number", required: false },
+    { label: "Message", type: "", required: true },
+];
 ---
 
-<Layout>
-	<Welcome />
-</Layout>
+<BaseLayout>
+    <!-- HERO -->
+    <div class="hero-container">
+        <div class="background-video-container">
+            <video
+                autoplay
+                muted
+                loop
+                playsinline
+                id="background-video"
+                class="w-screen"
+            >
+                <source src={mainVideoSrc} type="video/webm" />
+                <!-- TODO -->
+                <!-- Add a mobile-specific source if desired, using a media query in CSS for display logic -->
+                <!-- You can also add a fallback image here -->
+                Your browser does not support the video tag.
+            </video>
+        </div>
+        <div class="hero-content max-w-[1200px] mx-auto">
+            <nav
+                class:list={[
+                    "w-full grid grid-cols-3 py-4 px-8 items-center rounded-4xl",
+                    `text-center text-md text-indigo-900 bg-gray-100/70`,
+                ]}
+            >
+                <div class="flex justify-start">
+                    <strong>MisoCalico</strong>
+                </div>
+
+                <div></div>
+                <div class="flex justify-end">
+                    <a
+                        class:list={[
+                            "border-2 text-indigo-900 border-indigo-900 py-2 px-4 font-semibold rounded-2xl",
+                            "transition ease-in-out duration-300 hover:scale-102",
+                        ]}
+                        href="#contact">Work with Miso</a
+                    >
+                </div>
+            </nav>
+
+            <div class="grid grid-cols-3">
+                <div class="pl-10 pt-10">
+                    <h1 class="text-white text-4xl mt-5">Hi, I'm Miso!</h1>
+                    <p class="mt-5 text-gray-300 text-md">
+                        Turning everyday cat moments into short-form, relatable
+                        content that pet lovers can't stop watching.
+                    </p>
+                    <div class="grid grid-cols-2 text-center mt-8 gap-6">
+                        <a
+                            href="#portfolio"
+                            class:list={[
+                                "text-white p-4 border-2 border-indigo-900 font-semibold rounded-4xl",
+                                "transition ease-in-out duration-300 hover:scale-102",
+                            ]}>Portfolio</a
+                        >
+                        <a
+                            href="#contact"
+                            class:list={[
+                                "text-white p-4 border-1 bg-indigo-900 border-slate-600 font-semibold rounded-4xl",
+                                "transition ease-in-out duration-300 hover:scale-102",
+                            ]}>Work with Miso</a
+                        >
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ABOUT (STATS) -->
+    <section id="about" class=`justify-center p-20 bg-indigo-900`>
+        <div class="grid grid-cols-3 gap-6">
+            {
+                stats.map((s) => (
+                    <div class="text-center text-white">
+                        <h3 class="text-5xl">{s.stat}</h3>
+                        <p>{s.title}</p>
+                    </div>
+                ))
+            }
+        </div>
+    </section>
+    <!-- <div class="max-w-[1200px] mx-auto"> -->
+    <!-- PORTFOLIO -->
+    <section id="portfolio" class="max-w-[1200px] mx-auto w-full my-20">
+        <h2 class=`text-2xl text-center text-indigo-900 mb-5`>
+            Featured Content
+        </h2>
+        <div class="grid grid-cols-4 gap-4">
+            {
+                portfolio.map((p) => (
+                    <div class="max-w-sm rounded overflow-hidden shadow-lg rounded-xl">
+                        <Image
+                            class="w-full"
+                            src={p.img}
+                            alt="Miso eating churu"
+                        />
+                        <a />
+                    </div>
+                ))
+            }
+        </div>
+    </section>
+    <!-- PACKAGES -->
+    <section id="bundles" class="max-w-[1200px] mx-auto w-full mt-10 mb-5">
+        <div class="text-center mb-10">
+            <h2 class=`text-2xl text-indigo-900 mb-2`>Miso's Menu</h2>
+            <p>Fresh, authentic short-form pet content (served warm)</p>
+        </div>
+
+        <div class="grid grid-cols-3 gap-6">
+            {
+                services.map((s) => (
+                    <div
+                        class={`border-1 border-indigo-900 rounded-xl py-6 px-8 items-start`}
+                    >
+                        <h3>
+                            {s.icon} {s.name}
+                        </h3>
+                        <p>{s.description}</p>
+
+                        <div class="text-center mt-8 pb-10 border-b border-gray-300">
+                            <a
+                                href={`#contact?q=${s.name}`}
+                                class:list={[
+                                    "text-white p-4 border-1 bg-indigo-900 border-slate-600 font-semibold rounded-4xl",
+                                    "transition ease-in-out duration-300 hover:scale-102",
+                                ]}
+                            >
+                                Request pricing
+                            </a>
+                        </div>
+
+                        <p class="pt-3 font-semibold">Includes:</p>
+                        <ul>
+                            {s.includes.map((i) => (
+                                <li class="my-2">
+                                    ✔️ {i}{" "}
+                                    {i.includes("organic usage") && (
+                                        <span
+                                            data-tooltip-target="tooltip-dark"
+                                            data-tooltip-style="light"
+                                            class="text-indigo-800"
+                                        >
+                                            <InfoIcon />
+                                        </span>
+                                    )}
+                                </li>
+                            ))}
+                        </ul>
+                    </div>
+                ))
+            }
+            <!-- TODO: optional add ons for each bundle -->
+        </div>
+    </section>
+    <!-- CONTACT -->
+    <section
+        id="contact"
+        class="max-w-[1200px] mx-auto w-full mt-10 mb-5 border-t border-gray-300"
+    >
+        <div class="mt-10 mb-10">
+            <h2 class=`text-2xl text-indigo-900 mb-2`>
+                Let's Create Together 💜
+            </h2>
+            <p
+                class="w-fit flex items-center bg-green-200 border-1 border-gray-400/40 px-2 py-1 mb-5 rounded-3xl text-sm"
+            >
+                <span class="relative flex size-3">
+                    <span
+                        class="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75"
+                    ></span>
+                    <span
+                        class="relative inline-flex size-3 rounded-full bg-emerald-500"
+                    ></span>
+                </span>
+                <span class="mx-2"
+                    >Currently accepting new brand collaborations</span
+                >
+            </p>
+            <div class="mt-5 grid grid-cols-2 gap-10">
+                <div>
+                    {
+                        contactForm.map((c) => (
+                            <div class="mb-5">
+                                <label for="email" class="flex items-center">
+                                    <p class="text-md font-bold mr-2">
+                                        {c.label}
+                                    </p>
+                                    {c.required && (
+                                        <span class="text-xs text-gray-700">
+                                            Required
+                                        </span>
+                                    )}
+                                </label>
+                                <div class="mt-2">
+                                    {c.label === "Message" ? (
+                                        <textarea
+                                            class="block w-full rounded-md bg-white/5 px-3 py-1.5 text-base outline-1 -outline-offset-1 outline-indigo-700 placeholder:text-gray-500 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-500 sm:text-sm/6"
+                                            rows="4"
+                                            cols="50"
+                                        />
+                                    ) : (
+                                        <input
+                                            id="email"
+                                            type="email"
+                                            name="email"
+                                            autocomplete="email"
+                                            class="block w-full rounded-md bg-white/5 px-3 py-1.5 text-base outline-1 -outline-offset-1 outline-indigo-700 placeholder:text-gray-500 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-500 sm:text-sm/6"
+                                        />
+                                    )}
+                                </div>
+                            </div>
+                        ))
+                    }
+                    <div class="flex justify-end mt-3">
+                        <a
+                            href=""
+                            class:list={[
+                                "text-white py-4 px-8  border-1 bg-indigo-900 border-slate-600 font-semibold rounded-4xl",
+                                "transition ease-in-out duration-300 hover:scale-102",
+                            ]}>Send</a
+                        >
+                    </div>
+                </div>
+
+                <!-- embed location  -->
+                <div>
+                    <iframe
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1662976.2751711977!2d138.44764243652975!3d35.50426493926041!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x605d1b87f02e57e7%3A0x2e01618b22571b89!2sTokyo!5e0!3m2!1sen!2sjp!4v1766620710539!5m2!1sen!2sjp"
+                        width="600"
+                        height="450"
+                        style="border:0;"
+                        allowfullscreen=""
+                        loading="lazy"
+                        referrerpolicy="no-referrer-when-downgrade"></iframe>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- </div> -->
+    <footer>
+        <div
+            class="max-w-4xl mx-auto py-6 px-4 text-center text-sm text-gray-500"
+        >
+            © {new Date().getFullYear()} misocalico's pawrents. All rights reserved.
+        </div>
+    </footer>
+</BaseLayout>
+
+<style>
+    .hero-container {
+        position: relative; /* Needed to position content over the video */
+        height: 100vh; /* Makes the hero section fill the viewport height */
+        overflow: hidden; /* Hides any video overflow */
+    }
+    #background-video {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        min-width: 100%;
+        min-height: 100%;
+        width: auto;
+        height: auto;
+        transform: translate(-50%, -50%); /* Centers the video */
+        object-fit: cover; /* Ensures the video covers the entire container while maintaining aspect ratio */
+        z-index: 0; /* Puts the video behind the content */
+    }
+
+    .hero-content {
+        z-index: 1; /* Puts the content above the video */
+        display: flex;
+        flex-direction: column;
+    }
+
+    .background-video-container:after {
+        content: "";
+        position: absolute;
+        background: rgba(0, 0, 0, 0.5);
+        border-radius: 5px;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+    }
+</style>
