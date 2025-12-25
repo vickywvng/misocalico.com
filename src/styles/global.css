@@ -8,7 +8,6 @@
 @tailwind utilities;
 
 @custom-variant dark (&:is(.dark *));
-@plugin "daisyui";
 
 /* Light mode (default styles) */
 :root {
